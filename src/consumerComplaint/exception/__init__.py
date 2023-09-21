@@ -22,7 +22,7 @@ def error_message_detail(error, error_detail: sys):
 
 
 
-class MoneyLaunderingException(Exception):
+class ConsumerComplaintException(Exception):
     """
     Custom exception class for handling money laundering-related errors.
     """

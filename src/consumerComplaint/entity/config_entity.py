@@ -18,3 +18,10 @@ class DataIngestionConfig:
     failed_dir:Path
     metadata_file_path: Path
     datasource_url: str
+
+
+@dataclass
+class DataValidationConfig:
+    accepted_data_dir: Path
+    rejected_data_dir: Path
+    file_name: str

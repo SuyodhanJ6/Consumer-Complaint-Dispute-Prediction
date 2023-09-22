@@ -3,6 +3,7 @@ from consumerComplaint.exception import ConsumerComplaintException
 import os, sys
 
 from consumerComplaint.utils.main_utils import read_yaml_file, write_yaml_file
+from consumerComplaint.logger import logger
 
 from collections import namedtuple
 
@@ -40,7 +41,7 @@ class DataIngestionMetadata:
             if not self.is_metadata_file_present:
                 raise Exception("No metadata file available")
             metadata = read_yaml_file(self.metadata_file_path)
-            metadata_info = DataIngestionMetadataInfo(**(metadata))
+            metadata_info = DataIngestionMetadataInfo(**metadata)
             logger.info(metadata)
             return metadata_info
         except Exception as e:

@@ -1,0 +1,7 @@
+
+- - - from_date
+    - '2023-09-10'
+  - - to_date
+    - '2023-09-22'
+  - - data_file_path
+    - /home/suyodhan/Documents/Data-Science-Project/Consumer-Complaint-Dispute-Prediction/consumer_artifact/data_ingestion/feature_store/consumer_complaint

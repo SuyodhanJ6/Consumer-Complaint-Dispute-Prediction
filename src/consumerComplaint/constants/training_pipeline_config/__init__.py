@@ -9,7 +9,7 @@ PIPELINE_ARTIFACT_DIR = Path.cwd() / "consumer_artifact"
 
 from consumerComplaint.constants.training_pipeline_config.data_ingestion import *
 from consumerComplaint.constants.training_pipeline_config.data_validation import *
-# from finance_complaint.constant.training_pipeline_config.data_transformation import *
-# from finance_complaint.constant.training_pipeline_config.model_trainer import *
-# from finance_complaint.constant.training_pipeline_config.model_evaluation import *
-# from finance_complaint.constant.training_pipeline_config.model_pusher import *
+from consumerComplaint.constants.training_pipeline_config.data_transformation import *
+# from consumerComplaint.constant.training_pipeline_config.model_trainer import *
+# from consumerComplaint.constant.training_pipeline_config.model_evaluation import *
+# from consumerComplaint.constant.training_pipeline_config.model_pusher import *

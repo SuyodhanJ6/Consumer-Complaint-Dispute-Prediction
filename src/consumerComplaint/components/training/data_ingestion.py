@@ -393,20 +393,20 @@ class DataIngestion:
 
         
 
-def main():
-    try:
-        config = FinanceConfig()
-        data_ingestion_config = config.get_data_ingestion_config()
-        data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
-        data_ingestion.initiate_data_ingestion()
-    except Exception as e:
-        raise ConsumerComplaintException(e, sys)
+# def main():
+#     try:
+#         config = FinanceConfig()
+#         data_ingestion_config = config.get_data_ingestion_config()
+#         data_ingestion = DataIngestion(data_ingestion_config=data_ingestion_config)
+#         data_ingestion.initiate_data_ingestion()
+#     except Exception as e:
+#         raise ConsumerComplaintException(e, sys)
 
 
-if __name__ == "__main__":
-    try:
-        main()
+# if __name__ == "__main__":
+#     try:
+#         main()
 
-    except Exception as e:
-        logger.exception(e)
+#     except Exception as e:
+#         logger.exception(e)
 

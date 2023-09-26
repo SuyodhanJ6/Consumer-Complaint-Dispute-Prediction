@@ -10,7 +10,8 @@ from consumerComplaint.exception import ConsumerComplaintException
 from consumerComplaint.entity.metadata_entity import DataIngestionMetadata
 from consumerComplaint.entity.config_entity import (DataIngestionConfig, 
                                                     TrainingPipelineConfig,
-                                                    DataValidationConfig)
+                                                    DataValidationConfig,
+                                                    DataTransformationConfig)
 
 
 
@@ -123,7 +124,7 @@ class FinanceConfig:
             raise ConsumerComplaintException(e, sys)
 
 
-def get_data_validation_config(self) -> DataValidationConfig:
+    def get_data_validation_config(self) -> DataValidationConfig:
         """
         Name: get_data_validation_config
         Description: Retrieves data validation configuration information.
@@ -155,4 +156,31 @@ def get_data_validation_config(self) -> DataValidationConfig:
         except Exception as e:
             # Log an exception message if an exception occurs during data validation configuration retrieval.
             logger.exception("Error during data validation configuration retrieval.")
+            raise ConsumerComplaintException(e, sys)
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        try:
+            data_transformation_dir = os.path.join(self.pipeline_config.artifact_dir,
+                                                DATA_TRANSFORMATION_DIR, self.timestamp)
+
+            transformed_train_data_dir = os.path.join(
+                data_transformation_dir, DATA_TRANSFORMATION_TRAIN_DIR
+            )
+            transformed_test_data_dir = os.path.join(
+                data_transformation_dir, DATA_TRANSFORMATION_TEST_DIR
+            )
+
+            export_pipeline_dir = os.path.join(
+                data_transformation_dir, DATA_TRANSFORMATION_PIPELINE_DIR
+            )
+            data_transformation_config = DataTransformationConfig(
+                export_pipeline_dir=export_pipeline_dir,
+                transformed_test_dir=transformed_test_data_dir,
+                transformed_train_dir=transformed_train_data_dir,
+                file_name=DATA_TRANSFORMATION_FILE_NAME,
+                test_size=DATA_TRANSFORMATION_TEST_SIZE,
+            )
+
+            logger.info(f"Data transformation config: {data_transformation_config}")
+            return data_transformation_config
+        except Exception as e:
             raise ConsumerComplaintException(e, sys)

@@ -63,11 +63,11 @@ class FinanceDataSchema:
 
     @property
     def tfidf_features(self) -> List[str]:
-        return "issue"
+        return ["issue"]
 
     @property
     def derived_input_features(self) -> List[str]:
-        features = [
+        features = [    
             "date_sent_to_company",
              "date_received"
         ]
@@ -130,7 +130,7 @@ class FinanceDataSchema:
 
     @property
     def target_indexed_label(self) -> str:
-        return f"indexed_{self.target_column}"
+        return f"indexed_{[self.target_column]}"
 
     @property
     def prediction_column_name(self) -> str:
@@ -138,4 +138,21 @@ class FinanceDataSchema:
 
     @property
     def prediction_label_column_name(self) -> str:
-        return f"{self.prediction_column_name}_{self.target_column}"
+        return f"{self.prediction_column_name}_{[self.target_column]}"
+    
+    @property
+    def get_input_columns(self) -> str :
+        return [
+            "company_response",
+            "consumer_consent_provided",
+            "state",
+            "sub_issue",
+            "zip_code"
+        ]
+    
+    @property
+    def get_output_columns(self) ->str:
+        return [
+            f"im_{col}" for col in self.get_input_columns
+        ]
+

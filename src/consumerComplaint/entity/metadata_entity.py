@@ -41,6 +41,7 @@ class DataIngestionMetadata:
             if not self.is_metadata_file_present:
                 raise Exception("No metadata file available")
             metadata = read_yaml_file(self.metadata_file_path)
+            logger.info(f"metadata: {metadata}")  # Add this line
             metadata_info = DataIngestionMetadataInfo(**metadata)
             logger.info(metadata)
             return metadata_info

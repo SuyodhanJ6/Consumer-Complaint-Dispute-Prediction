@@ -1,18 +1,20 @@
+import sys
+
 from consumerComplaint.exception import ConsumerComplaintException
 from consumerComplaint.logger import logger
 from consumerComplaint.config.pipeline.training import FinanceConfig
 from consumerComplaint.components.training.data_ingestion import DataIngestion
 from consumerComplaint.components.training.data_validation import DataValidation
 from consumerComplaint.components.training.data_transformation import DataTransformation
-# , DataTransformation, ModelTrainer, \
-#     ModelEvaluation, \
-#     ModelPusher
+from consumerComplaint.components.training.model_training import ModelTrainer
+from consumerComplaint.components.training.model_evalution import ModelEvaluation
+from consumerComplaint.components.training.model_pusher import ModelPusher
+
 from consumerComplaint.entity.artifact_entity import (DataIngestionArtifact, 
                                                       DataValidationArtifact, 
-                                                      DataTransformationArtifact, )
-                                                    #   ModelTrainerArtifact, ModelEvaluationArtifact
-
-import sys
+                                                      DataTransformationArtifact,
+                                                      ModelTrainerArtifact, 
+                                                      ModelEvaluationArtifact)
 
 
 class TrainingPipeline:
@@ -53,36 +55,36 @@ class TrainingPipeline:
         except Exception as e:
             raise ConsumerComplaintException(e, sys)
 
-    # def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
-    #     try:
-    #         model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
-    #                                      model_trainer_config=self.finance_config.get_model_trainer_config()
-    #                                      )
-    #         model_trainer_artifact = model_trainer.initiate_model_training()
-    #         return model_trainer_artifact
-    #     except Exception as e:
-    #         raise ConsumerComplaintException(e, sys)
+    def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
+        try:
+            model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
+                                         model_trainer_config=self.finance_config.get_model_trainer_config()
+                                         )
+            model_trainer_artifact = model_trainer.initiate_model_training()
+            return model_trainer_artifact
+        except Exception as e:
+            raise ConsumerComplaintException(e, sys)
 
-    # def start_model_evaluation(self, data_validation_artifact, model_trainer_artifact) -> ModelEvaluationArtifact:
-    #     try:
-    #         model_eval_config = self.finance_config.get_model_evaluation_config()
-    #         model_eval = ModelEvaluation(data_validation_artifact=data_validation_artifact,
-    #                                      model_trainer_artifact=model_trainer_artifact,
-    #                                      model_eval_config=model_eval_config
-    #                                      )
-    #         return model_eval.initiate_model_evaluation()
-    #     except Exception as e:
-    #         raise ConsumerComplaintException(e, sys)
+    def start_model_evaluation(self, data_validation_artifact, model_trainer_artifact) -> ModelEvaluationArtifact:
+        try:
+            model_eval_config = self.finance_config.get_model_evaluation_config()
+            model_eval = ModelEvaluation(data_validation_artifact=data_validation_artifact,
+                                         model_trainer_artifact=model_trainer_artifact,
+                                         model_eval_config=model_eval_config
+                                         )
+            return model_eval.initiate_model_evaluation()
+        except Exception as e:
+            raise ConsumerComplaintException(e, sys)
 
-    # def start_model_pusher(self, model_trainer_artifact: ModelTrainerArtifact):
-    #     try:
-    #         model_pusher_config = self.finance_config.get_model_pusher_config()
-    #         model_pusher = ModelPusher(model_trainer_artifact=model_trainer_artifact,
-    #                                    model_pusher_config=model_pusher_config
-    #                                    )
-    #         return model_pusher.initiate_model_pusher()
-    #     except Exception as e:
-    #         raise ConsumerComplaintException(e, sys)
+    def start_model_pusher(self, model_trainer_artifact: ModelTrainerArtifact):
+        try:
+            model_pusher_config = self.finance_config.get_model_pusher_config()
+            model_pusher = ModelPusher(model_trainer_artifact=model_trainer_artifact,
+                                       model_pusher_config=model_pusher_config
+                                       )
+            return model_pusher.initiate_model_pusher()
+        except Exception as e:
+            raise ConsumerComplaintException(e, sys)
 
     def start(self):
         try:

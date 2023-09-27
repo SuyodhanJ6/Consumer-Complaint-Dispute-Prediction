@@ -34,3 +34,26 @@ class DataTransformationConfig:
     transformed_train_dir: Path
     transformed_test_dir: Path
     test_size: float
+
+
+@dataclass
+class ModelTrainerConfig:
+    base_accuracy: float
+    trained_model_file_path: str
+    metric_list: list
+    label_indexer_model_dir: str
+
+
+
+@dataclass
+class ModelEvaluationConfig:
+    model_evaluation_report_file_path: str
+    threshold: float
+    metric_list: list
+    model_dir: str
+    bucket_name: str
+
+@dataclass
+class ModelPusherConfig:
+    model_dir: str
+    bucket_name: str

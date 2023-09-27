@@ -3,19 +3,18 @@ import re
 import sys
 import time
 import uuid
-from collections import namedtuple
-from typing import List
-from datetime import datetime
-
 import json
 import pandas as pd
 import requests
+from collections import namedtuple
+from typing import List
+from datetime import datetime
 
 from consumerComplaint.config.pipeline.training import FinanceConfig
 from consumerComplaint.config.spark_manager import spark_session
 from consumerComplaint.entity.metadata_entity import DataIngestionMetadata
 from consumerComplaint.entity.artifact_entity import DataIngestionArtifact
-from consumerComplaint.entity.config_entity import  DataIngestionConfig
+from consumerComplaint.entity.config_entity import DataIngestionConfig
 from consumerComplaint.logger import logger
 from consumerComplaint.exception import ConsumerComplaintException
 
@@ -380,7 +379,7 @@ class DataIngestion:
 
             # Log the data ingestion artifact
             logger.info(f"Data ingestion artifact: {artifact}")
-            
+            logger.info(f"<-------------------------------- Data ingestion is completed successfully -------------------------------->")
             return artifact
         
 

@@ -1,11 +1,22 @@
-from consumerComplaint.config.spark_manager import spark_session
+# import joblib
 
-# da = spark_session.read.parquet("/home/suyodhan/Documents/Data-Science-Project/Consumer-Complaint-Dispute-Prediction/consumer_artifact/data_validation/20230926_003644/accepted_data/consumer_complaint")
-from pyspark.sql import DataFrame
+# # Sample data to serialize
+# data_to_serialize = {'name': 'John', 'age': 30, 'city': 'New York'}
 
+# # Serialize the data to a file
+# joblib.dump(data_to_serialize, 'data.pkl')
 
-file_path  = "/home/suyodhan/Documents/Data-Science-Project/Consumer-Complaint-Dispute-Prediction/consumer_artifact/data_validation/20230926_005416/accepted_data/consumer_complaint"
+# # Deserialize the data from the file
+# loaded_data = joblib.load('data.pkl')
 
-dataframe: DataFrame = spark_session.read.parquet(file_path)
-# dataframe.printSchema()
-dataframe.show(10)
+# # Print the loaded data
+# print(loaded_data)
+from pyspark.ml.pipeline import Pipeline, PipelineModel
+
+try:
+
+    transformed_pipeline_file_path = "consumer_artifact/data_transformation/20230927_130037/transformed_pipeline/transformed_pipeline.joblib"
+    transformed_pipeline = PipelineModel.load(transformed_pipeline_file_path)
+
+except Exception as e:
+    print(f"Error : {e}")

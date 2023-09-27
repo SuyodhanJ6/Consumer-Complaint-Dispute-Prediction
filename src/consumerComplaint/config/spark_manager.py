@@ -1,6 +1,6 @@
-from consumerComplaint.constants.environment import AWS_ACCESS_KEY_ID_ENV_KEY,AWS_SECRET_ACCESS_KEY_ENV_KEY
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
+
 from pyspark.sql import SparkSession
 
 # Load environment variables from .env

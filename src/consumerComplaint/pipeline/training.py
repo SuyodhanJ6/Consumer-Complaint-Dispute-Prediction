@@ -101,6 +101,3 @@ class TrainingPipeline:
         except Exception as e:
             raise ConsumerComplaintException(e, sys)
 
-finance = FinanceConfig()
-training_pipeline = TrainingPipeline(finance)
-training_pipeline.start()

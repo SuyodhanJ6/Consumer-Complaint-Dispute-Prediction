@@ -127,5 +127,3 @@ class PredictionPipeline:
             raise ConsumerComplaintException(e, sys)
 
 
-prediction = PredictionPipeline()
-prediction.start_batch_prediction()

@@ -1,6 +1,11 @@
-# Project Template Generator Script
+# Consumer-Complaint-Dispute-Prediction
 
 [![GitHub License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+- [![Git Logo](https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fgithub-logo_25231&psig=AOvVaw0PLSY7LmQTWcSX5I9EKBW4&ust=1696114076785000&source=images&cd=vfe&ved=0CBEQjRxqFwoTCNiCgrvz0IEDFQAAAAAdAAAAABAE)](https://git-scm.com/)
+- [![Python Logo](https://example.com/python-logo.png)](https://www.python.org/downloads/)
+- [![Docker Logo](https://example.com/docker-logo.png)](https://www.docker.com/get-started)
+
+
 
 ## Problem Statement
 
@@ -179,8 +184,7 @@ To use GitHub Actions runners for your project, follow these steps:
 
    ```bash
    ./run_init.sh
-
-```
+   ```
 
 
 ## License

@@ -185,7 +185,11 @@ To use GitHub Actions runners for your project, follow these steps:
    ```bash
    ./run_init.sh
    ```
+### Training
 
+<p>
+    <img src="flowchart/Model Trainer.png" width="220" height="240" />
+</p>
 
 ## License
 - This script is open-source and available under the MIT License. You are free to use and modify it for your projects.

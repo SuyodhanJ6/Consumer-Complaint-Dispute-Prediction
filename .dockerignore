@@ -312,3 +312,40 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Ignore common Python and development files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+*.log.*
+*.tmp
+*.swp
+*.bak
+*.db-journal
+*.idea
+.vscode
+.DS_Store
+*.git
+*.gitignore
+*.gitattributes
+
+# Ignore dependencies and build artifacts
+node_modules/
+venv/
+dist/
+build/
+*.egg-info/
+*.egg
+*.log
+*.swp
+*.swo
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.tgz

@@ -151,29 +151,19 @@ class ModelTrainer:
         try:
             logger.info("--------------------------------->export_trained_model")
             
-            transformed_pipeline_file_path = self.data_transformation_artifact.exported_pipeline_file_path / "transformed_pipeline.joblib"
+            transformed_pipeline_file_path = self.data_transformation_artifact.exported_pipeline_file_path
+            transformed_pipeline = PipelineModel.load(transformed_pipeline_file_path)
 
-            logger.info(f"transformed_pipeline_file_path: {str(transformed_pipeline_file_path)}")
-
-            try:
-                transformed_pipeline = joblib.load(transformed_pipeline_file_path)
-            except Exception as e:
-                logger.error(f"Error: {e}")  # Log the error using logger.error()
-                # You can choose to raise an exception here if needed
-                raise ConsumerComplaintException(e, sys)
-
-            
             logger.info(f"print stages : {transformed_pipeline.stages}")
 
             updated_stages = transformed_pipeline.stages + model.stages
             transformed_pipeline.stages = updated_stages
-            trained_model_file_path = Path(self.model_trainer_config.trained_model_file_path)  # Convert to Path
-
-            # Save the trained model using joblib
-            joblib.dump(transformed_pipeline, trained_model_file_path)
+            trained_model_file_path = self.model_trainer_config.trained_model_file_path
+            transformed_pipeline.save(trained_model_file_path)
 
             logger.info("Creating trained model directory")
-            trained_model_file_path.parent.mkdir(parents=True, exist_ok=True)  # Create the parent directory
+            trained_model_file_path = self.model_trainer_config.trained_model_file_path
+            os.makedirs(os.path.dirname(trained_model_file_path), exist_ok=True)
 
             ref_artifact = PartialModelTrainerRefArtifact(
                 trained_model_file_path=trained_model_file_path,
@@ -181,6 +171,7 @@ class ModelTrainer:
 
             logger.info(f"Model trainer reference artifact: {ref_artifact}")
             return ref_artifact
+
 
         except Exception as e:
             raise ConsumerComplaintException(e, sys)

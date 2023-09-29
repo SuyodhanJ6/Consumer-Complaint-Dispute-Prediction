@@ -326,7 +326,7 @@ class FinanceComplaintEstimator:
             self.loaded_model_path = None
             self.__loaded_model = None
         except Exception as e:
-            raise FinanceException(e, sys)
+            raise ConsumerComplaintException(e, sys)
 
     def get_model(self) -> PipelineModel:
         try:
@@ -336,7 +336,7 @@ class FinanceComplaintEstimator:
                 self.loaded_model_path = latest_model_path
             return self.__loaded_model
         except Exception as e:
-            raise FinanceException(e, sys)
+            raise ConsumerComplaintException(e, sys)
 
     def get_latest_model_path(self, ):
         try:
@@ -346,14 +346,14 @@ class FinanceComplaintEstimator:
             model_path = os.path.join(self.model_dir, latest_model_folder, os.listdir(tmp_dir)[-1])
             return model_path
         except Exception as e:
-            raise FinanceException(e, sys)
+            raise ConsumerComplaintException(e, sys)
 
     def transform(self, dataframe) -> DataFrame:
         try:
             model = self.get_model()
             return model.transform(dataframe)
         except Exception as e:
-            raise FinanceException(e, sys)
+            raise ConsumerComplaintException(e, sys)
 
 
 class S3FinanceEstimator(FinanceComplaintEstimator, S3Estimator):

@@ -1,7 +1,13 @@
-from consumerComplaint.constants.environment.variable_key import AWS_SECRET_ACCESS_KEY_ENV_KEY, AWS_ACCESS_KEY_ID_ENV_KEY
+# from consumerComplaint.constants.environment.variable_key import AWS_SECRET_ACCESS_KEY_ENV_KEY, AWS_ACCESS_KEY_ID_ENV_KEY
 import os
 import boto3
+from dotenv import load_dotenv
+load_dotenv() 
 
+
+
+AWS_ACCESS_KEY_ID_ENV_KEY = os.getenv("AWS_ACCESS_KEY_ID")
+AWS_SECRET_ACCESS_KEY_ENV_KEY = os.getenv("AWS_SECRET_ACCESS_KEY")
 
 class AWSConnectionConfig:
 
@@ -10,8 +16,8 @@ class AWSConnectionConfig:
     def __init__(self, region_name):
 
         if AWSConnectionConfig.s3_resource==None or AWSConnectionConfig.s3_client==None:
-            __access_key_id = os.getenv(AWS_ACCESS_KEY_ID_ENV_KEY, )
-            __secret_access_key = os.getenv(AWS_SECRET_ACCESS_KEY_ENV_KEY, )
+            __access_key_id = AWS_ACCESS_KEY_ID_ENV_KEY
+            __secret_access_key = AWS_SECRET_ACCESS_KEY_ENV_KEY
             if __access_key_id is None:
                 raise Exception(f"Environment variable: {AWS_ACCESS_KEY_ID_ENV_KEY} is not not set.")
             if __secret_access_key is None:

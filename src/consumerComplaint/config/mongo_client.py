@@ -2,7 +2,8 @@ import os
 import pymongo
 import certifi
 
-from consumerComplaint.constants.environment.variable_key import MONGO_DB_URL_ENV_KEY
+# from consumerComplaint.constants.environment.variable_key import MONGO_DB_URL_ENV_KEY
+MONGO_DB_URL_ENV_KEY = os.getenv("MONGO_DB_URL")
 from consumerComplaint.constants.database import DATABASE_NAME
 
 ca = certifi.where()

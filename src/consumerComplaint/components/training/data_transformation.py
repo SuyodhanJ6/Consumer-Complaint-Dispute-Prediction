@@ -252,38 +252,36 @@ class DataTransformation:
             transformed_test_dataframe = transformed_pipeline.transform(test_dataframe)
             transformed_test_dataframe = transformed_test_dataframe.select(required_columns)
 
-            # Define file paths using pathlib
             export_pipeline_dir = Path(self.data_tf_config.export_pipeline_dir)
             transformed_train_dir = Path(self.data_tf_config.transformed_train_dir)
             transformed_test_dir = Path(self.data_tf_config.transformed_test_dir)
 
-            # Create directories if they don't exist
+            # Create the required directories if they don't exist
             export_pipeline_dir.mkdir(parents=True, exist_ok=True)
             transformed_train_dir.mkdir(parents=True, exist_ok=True)
             transformed_test_dir.mkdir(parents=True, exist_ok=True)
+
+            # Define the file paths
+            transformed_train_data_file_path = transformed_train_dir / self.data_tf_config.file_name
+            transformed_test_data_file_path = transformed_test_dir / self.data_tf_config.file_name
+
+            logger.info(f"Saving transformation pipeline at: [{export_pipeline_dir}]")
+            transformed_pipeline.save(str(export_pipeline_dir))
+            # Specify the save mode as a string
+            save_mode = "overwrite"  # You can change this to your desired mode: "error", "append", "overwrite", or "ignore"
+
+            # Save the DataFrame
+            # transformed_pipeline.write.mode(save_mode).save(str(export_pipeline_dir))
+
+
+            # Save the DataFrame 
+            # transformed_pipeline.write.mode(save_mode).save(str(export_pipeline_dir))
+            
 
             # Define file paths for transformed data
             transformed_train_data_file_path = transformed_train_dir / self.data_tf_config.file_name
             transformed_test_data_file_path = transformed_test_dir / self.data_tf_config.file_name
 
-            #Save the transformation pipeline to a directory
-            # save_object(str(export_pipeline_dir), transformed_pipeline)
-            # try:
-            #     file_name = "transformed_pipeline.joblib"  # Change this to your desired file name
-
-            #     # Save the PySpark pipeline using joblib
-            #     pipeline_file_path = export_pipeline_dir / file_name
-            #     joblib.dump(transformed_pipeline, pipeline_file_path)
-            # except Exception as e:
-            #     logger.info(f"Error: {e}")
-            file_name = "transformed_pipeline.dill"  # Change this to your desired file name with the .dill extension
-
-            # Create the full file path for saving the pipeline
-            pipeline_file_path = export_pipeline_dir / file_name
-
-            # Save the PySpark pipeline to the specified file path using dill
-            with open(pipeline_file_path, "wb") as file_obj:
-                dill.dump(transformed_pipeline, file_obj)
 
             # Write transformed data to Parquet format
             transformed_trained_dataframe.write.parquet(str(transformed_train_data_file_path))

@@ -9,10 +9,9 @@ from consumerComplaint.components.training.data_transformation import DataTransf
 from consumerComplaint.components.training.model_training import ModelTrainer
 from consumerComplaint.components.training.model_evalution import ModelEvaluation
 from consumerComplaint.components.training.model_pusher import ModelPusher
-
 from consumerComplaint.entity.artifact_entity import (DataIngestionArtifact, 
                                                       DataValidationArtifact, 
-                                                      DataTransformationArtifact,
+                                                      DataTransformationArtifact, 
                                                       ModelTrainerArtifact, 
                                                       ModelEvaluationArtifact)
 
@@ -43,22 +42,23 @@ class TrainingPipeline:
         except Exception as e:
             raise ConsumerComplaintException(e, sys)
 
-    def start_data_transformation(self, data_validation_artifact: DataValidationArtifact) -> DataTransformationArtifact:
+    def start_data_transformation(self, data_val_artifact: DataValidationArtifact) -> DataTransformationArtifact:
         try:
             data_transformation_config = self.finance_config.get_data_transformation_config()
-            data_transformation = DataTransformation(data_val_artifact=data_validation_artifact,
-                                                     data_tf_config=data_transformation_config )
-            
+            data_transformation = DataTransformation(data_val_artifact=data_val_artifact,
+                                                     data_tf_config=data_transformation_config
+
+                                                     )
             data_transformation_artifact = data_transformation.initiate_data_transformation()
-            logger.info(f"data_transformation_artifact :  {data_transformation_artifact}")
             return data_transformation_artifact
         except Exception as e:
             raise ConsumerComplaintException(e, sys)
 
     def start_model_trainer(self, data_transformation_artifact: DataTransformationArtifact) -> ModelTrainerArtifact:
         try:
+            model_trainer_config = self.finance_config.get_model_trainer_config()
             model_trainer = ModelTrainer(data_transformation_artifact=data_transformation_artifact,
-                                         model_trainer_config=self.finance_config.get_model_trainer_config()
+                                         model_trainer_config=model_trainer_config
                                          )
             model_trainer_artifact = model_trainer.initiate_model_training()
             return model_trainer_artifact
@@ -90,11 +90,16 @@ class TrainingPipeline:
         try:
             data_ingestion_artifact = self.start_data_ingestion()
             data_validation_artifact = self.start_data_validation(data_ingestion_artifact=data_ingestion_artifact)
-            data_transformation_artifact = self.start_data_transformation(data_validation_artifact=data_validation_artifact)
-
+            data_transformation_artifact = self.start_data_transformation(
+                data_val_artifact=data_validation_artifact)
+            model_trainer_artifact = self.start_model_trainer(data_transformation_artifact=data_transformation_artifact)
+            model_eval_artifact = self.start_model_evaluation(data_validation_artifact=data_validation_artifact,
+                                                              model_trainer_artifact=model_trainer_artifact
+                                                              )
+            if model_eval_artifact.model_accepted:
+                self.start_model_pusher(model_trainer_artifact=model_trainer_artifact)
         except Exception as e:
             raise ConsumerComplaintException(e, sys)
-        
 
 finance = FinanceConfig()
 training_pipeline = TrainingPipeline(finance)

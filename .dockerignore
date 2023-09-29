@@ -1,3 +1,12 @@
+consumer_artifact
+saved_models
+venv
+docs
+flowcharts
+research
+.git
+aps_failure_training_set1.csv
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

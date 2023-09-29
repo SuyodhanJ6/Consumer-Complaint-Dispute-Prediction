@@ -13,6 +13,9 @@ COPY . /app
 # Install the required Python packages from the requirements.txt file
 RUN pip install -r requirements.txt
 
+# Set the JAVA_HOME environment variable
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+
 # Specify the command to run when the container starts
 CMD ["python3", "app.py"]
 

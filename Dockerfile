@@ -2,12 +2,9 @@
 FROM python:3.8.2-slim-buster
 
 # Update and install necessary packages
-RUN apt-get update -y \
-    && apt-get install openjdk-8-jdk -y \
+RUN apt-get install openjdk-8-jdk -y \
     && apt-get install python3-pip -y \
     && export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
 
 # Set environment variables
 ENV PYSPARK_PYTHON=/usr/bin/python3

@@ -88,7 +88,7 @@ jobs:
     
       - name: Pull latest images
         run: |
-         docker pull 971650476585.dkr.ecr.ap-south-1.amazonaws.com/consumer-complaint-ecr:latest
+         docker pull 112869101806.dkr.ecr.ap-south-1.amazonaws.com/money-laundering-prevention-app:latest
 
       # - name: Stop and remove container if running
       #   run: |
@@ -96,7 +96,7 @@ jobs:
 
       - name: Run Docker Image
         run: |
-         docker run -d -p 80:8080 --name=my-container 971650476585.dkr.ecr.ap-south-1.amazonaws.com/consumer-complaint-ecr:latest
+         docker run -d -p 80:8080 --name=my-container 112869101806.dkr.ecr.ap-south-1.amazonaws.com/money-laundering-prevention-app:latest
 
       - name: Clean previous images and containers
         run: |

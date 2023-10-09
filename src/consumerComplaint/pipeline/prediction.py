@@ -127,3 +127,6 @@ class PredictionPipeline:
             raise ConsumerComplaintException(e, sys)
 
 
+if __name__ == "__main__":
+    prediction = PredictionPipeline()
+    prediction.start_batch_prediction()

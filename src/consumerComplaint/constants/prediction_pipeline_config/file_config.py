@@ -3,7 +3,7 @@ from datetime import datetime
 from consumerComplaint.constants import TIMESTAMP
 
 
-S3_DATA_BUCKET_NAME = "consumer-cat-service"
+S3_DATA_BUCKET_NAME = "consumer-service"
 ROOT_DATA_DIR_NAME = "consumer_data"
 ARCHIVE_DIR_NAME = "archive"
 INPUT_DIR_NAME = "input"

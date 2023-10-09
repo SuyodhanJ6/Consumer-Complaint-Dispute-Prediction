@@ -1,0 +1,1 @@
+{"class":"consumerComplaint.ml.feature.DerivedFeatureGenerator","timestamp":1696843304116,"sparkVersion":"3.5.0","uid":"DerivedFeatureGenerator_6f6f9e21f4fb","paramMap":{"inputCols":["date_sent_to_company","date_received"],"outputCols":["diff_in_days"]},"defaultParamMap":{}}

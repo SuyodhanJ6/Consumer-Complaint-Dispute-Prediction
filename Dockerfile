@@ -1,22 +1,31 @@
-# Use the official Python 3.8.5 image as the base
-FROM python:3.8.5-slim-buster
+# Use the Python 3.8.2 image as the base
+FROM python:3.8.2-slim-buster
 
-# Update the package list and install the AWS CLI
-RUN apt update -y && apt install awscli -y
+# Update and install necessary packages
+RUN apt-get update -y \
+    && apt-get install -y software-properties-common \
+    && add-apt-repository ppa:deadsnakes/ppa \
+    && apt-get install openjdk-8-jdk -y \
+    && apt-get install python3-pip -y \
+    && export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/ \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Set the working directory inside the container
-WORKDIR /app
+# Set environment variables
+ENV PYSPARK_PYTHON=/usr/bin/python3
+ENV PYSPARK_DRIVER_PYTHON=/usr/bin/python3
 
-# Copy the contents of the current directory to the working directory in the container
-COPY . /app
+# Create a directory for your application
+RUN mkdir /app
 
-# Install the required Python packages from the requirements.txt file
-RUN pip install -r requirements.txt
+# Copy your application code into the container
+COPY . /app/
 
-# Set the JAVA_HOME environment variable
-ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# Set the working directory
+WORKDIR /app/
+
+# Install the Python dependencies from requirements.txt
+RUN pip3 install -r requirements.txt
 
 # Specify the command to run when the container starts
 CMD ["python3", "app.py"]
-
-# Specify the command to run when the container
